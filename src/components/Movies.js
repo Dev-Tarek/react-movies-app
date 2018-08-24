@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Table from './layouts/Table';
 import Bar from './layouts/Bar';
 import Grid from '@material-ui/core/Grid/Grid';
-import {getMovie, getMovies, deleteMovie, saveMovie} from './../services/fakeMovieService';
+import {getMovies, deleteMovie, saveMovie} from './../services/fakeMovieService';
 import AddForm from './AddForm';
 
 const labels = ['Title', 'Genre', 'Stock', 'Rate', '', ''];
@@ -80,8 +80,8 @@ export default class extends Component{
     render() {
         return (
           <Grid container>
-            <Grid md={2} />
-            <Grid xs={12} sm={12} md={8}>
+            <Grid item md={2} />
+            <Grid item xs={12} sm={12} md={8}>
                 <Bar color='default' title='Movies Platform' />
                 <Table
                     labels={labels}
@@ -93,7 +93,7 @@ export default class extends Component{
                 <p style={{color: 'pink'}}>Showing {this.state.movies.length} movies in the database.</p>
                 <AddForm handle={this.formHandler.bind(this)} />
             </Grid>
-            <Grid md={2} />
+            <Grid item md={2} />
           </Grid>
         );
       }

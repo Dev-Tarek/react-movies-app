@@ -49,7 +49,7 @@ export default class FormDialog extends React.Component {
             </DialogContentText>
             <TextField autoFocus margin="dense" id="name" label="Title" fullWidth value={this.state.textField.name} onChange={event=>this.handleTextFieldChange(event,'name')}/>
             <TextField autoFocus margin="dense" id="genre" label="Genre" fullWidth value={this.state.textField.genre} onChange={event=>this.handleTextFieldChange(event,'genre')}/>
-            <TextField autoFocus margin="dense" id="name" label="Availablitiy" fullWidth value={this.state.textField.stock} onChange={event=>this.handleTextFieldChange(event,'stock')}/>
+            <TextField autoFocus margin="dense" id="genre" label="Availability" fullWidth value={this.state.textField.stock} onChange={event=>this.handleTextFieldChange(event,'stock')}/>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
