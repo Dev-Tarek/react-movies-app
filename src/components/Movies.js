@@ -4,6 +4,7 @@ import Bar from './layouts/Bar';
 import Grid from '@material-ui/core/Grid/Grid';
 import {getMovies, deleteMovie, saveMovie} from './../services/fakeMovieService';
 import AddForm from './AddForm';
+import { genres } from '../services/fakeGenreService';
 
 const labels = ['Title', 'Genre', 'Stock', 'Rate', '', ''];
 
@@ -77,6 +78,7 @@ export default class extends Component{
         });
     }
 
+
     render() {
         return (
           <Grid container>
@@ -89,6 +91,7 @@ export default class extends Component{
                     likedList={this.state.likedMovies}
                     delete={this.deleteHandler.bind(this)}
                     like={this.likeHandler.bind(this)}
+                    genres={genres}
                 />
                 <p style={{color: 'pink'}}>Showing {this.state.movies.length} movies in the database.</p>
                 <AddForm handle={this.formHandler.bind(this)} />

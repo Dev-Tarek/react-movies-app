@@ -6,6 +6,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
+import Select from './Select';
 
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -46,7 +47,8 @@ export default class TableComponent extends React.Component{
         data: this.props.data,
         page: 0,
         rowsPerPage: 5,
-        sortIndex: 1,
+        sortIndex: 0,
+        selectedGenre: null,
     }
 
     sorter(index){
@@ -90,6 +92,13 @@ export default class TableComponent extends React.Component{
         });
     }
 
+    handleGenreSelect(genre){
+        if(genre === 'All')
+            this.setState({selectedGenre: null});
+        else
+            this.setState({selectedGenre: genre});
+    }
+
     handleChangePage = (event, page) => {
         this.setState({ page });
     };
@@ -101,7 +110,10 @@ export default class TableComponent extends React.Component{
     render(){
         const {style, data, page, rowsPerPage, sortIndex} = this.state;
 
-        const tableData = data
+        const filteredData = data
+        .filter(movie => this.state.selectedGenre? movie.genre.name === this.state.selectedGenre : movie)
+        
+        const tableData = filteredData
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
         .map(item => 
             <TableRow key={item._id}>
@@ -121,8 +133,14 @@ export default class TableComponent extends React.Component{
                 </TableCell>
             </TableRow>
         )
-
         return (
+            <div>
+            <Select
+                button='Select Genre'
+                name='Genre'
+                items={this.props.genres}
+                handle={this.handleGenreSelect.bind(this)}
+            />
             <Paper style={style.paper}>
                 <Table >
                     <TableHead style={style.tableHead}>
@@ -147,10 +165,9 @@ export default class TableComponent extends React.Component{
                         {tableData}
                     </TableBody>
                 </Table>
-
                 <TablePagination
                     component="div"
-                    count={data.length}
+                    count={filteredData.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     backIconButtonProps={{'aria-label': 'Previous Page',}}
@@ -159,6 +176,7 @@ export default class TableComponent extends React.Component{
                     onChangeRowsPerPage={this.handleChangeRowsPerPage}
                 />
             </Paper>
+            </div>
         )
     }
 }
